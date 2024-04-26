@@ -1,0 +1,41 @@
+.info{
+    background-color: white;
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+   }
+
+   @media (max-width: 768px) {
+      .info{
+        background-color: white; 
+      }
+   }
+.gallery{
+  background-color: white;
+}
+
+.zoomP{
+  /*aumentamos la anchura y la altura durante 1 segundo */
+  transition: width 1.1s, height 1.1s, transform 1.1s;
+  -moz-transition: width 1.1s, height 1.1s, -moz-transform 1.1s;
+  -webkit-transition: width 1.1s, height 1.1s, -webkit-transform 1.1s;
+  -o-transition: width 1.1s, height 1.1s, -o-transform 1.1s;
+}
+.zoomP:hover{
+   /*transformamos el elemento al pasar el mouse por encima al doble de su tamaño con scale(2) */
+   transform: scale(1.05); 
+
+   -webkit-transform: scale(1.05);transform: scale(1.05);
+}
+
+.contactos{
+  background-color: white ;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+
+}
+
+.footer{
+ background-color:  #45a7fe;
+ color: white;
+}
+
