@@ -1,7 +1,19 @@
 <?php
 session_start();
-if (isset($_SESSION['sesion email'])) {
+if (isset($_SESSION['sesion_email'])) {
 //echo "ha pasado por el login";
+    $email_sesion = $_SESSION['sesion_email'];
+    $sql = "SELECT * FROM tb_usuarios where email = '$email_sesion'" ;
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    $usuarios = $query->fetchAll(pdo::FETCH_ASSOC);
+    foreach ($usuarios as $usuario){
+        $id_usuario_sesion = $usuario['id_usuario'];
+        $cargo_sesion = $usuario['cargo'];
+    }
+    if ($cargo_sesion == "CLIENTE"){
+        header( 'location: '.$URL.'/');
+    }
 }else{
 // echo "no ha pasado por el login";
 header( 'location: '.$URL.'/login');
@@ -25,6 +37,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="<?php echo $URL;?>/public/templeates/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo $URL;?>/public/templeates/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+
+    <!-- jQuery -->
+    <script src="<?php echo $URL;?>/public/templeates/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
+
+    <!-- libreria de mensajes sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="<?php echo $URL;?>/public/templeates/AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?php echo $URL;?>/public/templeates/AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?php echo $URL;?>/public/templeates/AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+    <!-- iconos bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -43,34 +69,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-            </li>
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-bell"></i>
-                    <span class="badge badge-warning navbar-badge">15</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-header">15 Notifications</span>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> 4 new messages
-                        <span class="float-right text-muted text-sm">3 mins</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-users mr-2"></i> 8 friend requests
-                        <span class="float-right text-muted text-sm">12 hours</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> 3 new reports
-                        <span class="float-right text-muted text-sm">2 days</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
-            </li>
+
+
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                     <i class="fas fa-expand-arrows-alt"></i>
@@ -83,7 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="<?php echo $URL;?>/public/templeates/AdminLTE-3.2.0/index3.html" class="brand-link">
+        <a href="<?php echo $URL;?>/admin" class="brand-link">
             <img src="<?php echo $URL;?>/public/templeates/AdminLTE-3.2.0/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">SIS-VETERINARIO</span>
         </a>
@@ -94,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="info">
                     <a href="" class="d-block">
-                        <b>Bienvenido</b> <br> Jhonatan Barrera
+                        <b>Bienvenido</b> <br> <?= $cargo_sesion;?>
                     </a>
                 </div>
             </div>
@@ -123,6 +123,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <a href="<?php echo $URL;?>/admin/usuarios/create.php" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Nuevo usuario</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-">
+                                <i class="bi bi-cart4"></i>
+                            </i>
+                            <p>
+                                Productos
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?php echo $URL;?>/admin/productos" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Listado de productos</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?php echo $URL;?>/admin/productos/create.php" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Nuevo producto</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-list"></i>
+                            <p>
+                                Reservas
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?php echo $URL;?>/admin/reservas" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Listado de reservas</p>
                                 </a>
                             </li>
                         </ul>

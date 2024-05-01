@@ -1,77 +1,8 @@
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>sistema de veterinario</title>
-    
-    <!--libreria de bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
- 
-    <!--iconos de bootstrap-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
- 
-   <!--JQUERY-->
-   <script src="public/js/jquery-3.7.1.min.js"></script>
-
-   <!--styles css-->
-    <link rel="stylesheet" href="public/css/style.css">
-
-  </head>
-  <body>
-   
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="public/img/logo sin fondo.png"
-          alt="Logo" width="220" height="80" class="d-inline-block align-text-top">
-          
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button> 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link  btn btn-outline-info" aria-current="page" href="#"><i class="bi bi-house-fill"></i> Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link btn btn-outline-info" href="#">Citas</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle btn btn-outline-info" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link btn btn-outline-info" aria-disabled="true">Disabled</a>
-            </li>
-          </ul>
-          <div class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle btn btn-outline-info" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Ingresar
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="login/index.php">Iniciar Sesion</a></li>
-                  <li><a class="dropdown-item" href="login/registro.php">Registrarme</a></li>
-                </ul>
-              </li>
-            </ul>
-          <div>
-        </div>
-      </div>
-    </nav>
-  
+<?php
+include ('app/config.php');
+include ('layout/parte1.php');
+include ('app/controllers/productos/listado_de_productos.php');
+?>
 
   <section>
     <div id="carouselExampleCaptions" class="carousel slide">
@@ -84,8 +15,8 @@
         <div class="carousel-item active">
           <img src="https://images.pexels.com/photos/19145885/pexels-photo-19145885/free-photo-of-mujer-trabajando-perro-mascota.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" height="600px" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">
-            <a href="" class="btn btn-outline-info btn-lg">Reservar Cita</a>
-            <a href="" class="btn btn-outline-info btn-lg">Ver Productos</a>  <br> <br>
+            <a href="<?php echo $URL;?>/reservas.php" class="btn btn-outline-info btn-lg">Reservar Cita</a>
+              <br><br>
             <h5>First slide label</h5>
             <p>Some representative placeholder content for the first slide.</p>
           </div>
@@ -138,8 +69,45 @@
    </div>
   
 </section>
-  
-  
+
+    <section class="our-services" >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <br><br>
+                    <center>
+                        <h1>Nuestros  <b style="color: #45a7fe;" >Productos</b></h1>
+                        <br><br>
+                    </center>
+
+                </div>
+            </div>
+            <div class="row">
+
+                <?php
+                foreach ($productos as $producto) {
+                    ?>
+                    <div class="col-md-3 zoomP">
+                        <div class="card">
+                            <img src="<?=$URL."/public/img/productos/".$producto['imagen'];?>"
+                                 height="250px" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title"><?=$producto['nombre_producto'];?></h5>
+                                <p class="card-text"><?=$producto['descripcion'];?></p>
+                                <p style="color: #0c84ff"><b>$. <?=$producto['precio_venta'];?></b></p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
+        </div>
+        <br>
+    </section>
+
 <section class="our-services">
   <div class="container">
   <div class="row">
@@ -158,8 +126,8 @@
         <img src="https://img.freepik.com/foto-gratis/lindo-mascota-collage-aislado_23-2150007407.jpg?t=st=1713845611~exp=1713849211~hmac=c4d33249eb0dd94efcc386079bfb8dff6ca0f2074cc2486c6768b75445bd26c7&w=826" 
         height="250px" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <h5 class="card-title">Venta de productos-Tienda local</h5>
+          <p class="card-text">Acercate a nuestra tienda y tendras los mejores productos para el cuidado de tu mascota</p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
       </div>
@@ -170,20 +138,22 @@
         <img src="https://images.pexels.com/photos/54632/cat-animal-eyes-grey-54632.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
         height="250px" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <h5 class="card-title">Servicios veterinarios</h5>
+          <p class="card-text">Agenda tus servicios como lavado, corte de pelo, revision medica u otros servicios</p>
+            <br>
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
       </div>
       <br>
     </div>
-    <div class="col-md-3 zoomP">
+    <div class="col-md-3 zoomP" >
       <div class="card" >
         <img src="https://images.pexels.com/photos/2253275/pexels-photo-2253275.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-        height="250px" class="card-img-top" alt="...">
+        height="250px" class="card-img-top"   alt="">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <h5 class="card-title">Otros servicios veterinarios</h5>
+          <p class="card-text">aqui texto sobre otro servicios</p>
+            <br><br>
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
@@ -395,97 +365,12 @@
       width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
      </div>
   </section>
-
+<br><br>
   
-<section class="contactos">
-  <div class="container">
-    <br><br><h1 style="text-align: center;">Contactanos</h1><br><br>
-   <div class="row">
-      <div class="col-md-4"></div>
-        <div class="col-md-4">
-        <div class="card">
-          <div class="card-header">
-            <center><b>Escribenos Aqui</b></center>
-          </div>
-          <div class="card-body">
-            <form action="" method="post">
-               <div class="form-group">
-                <label for=""><b>Nombre</b></label>
-                <input type="text" class="form-control" placeholder="Escribe tu Nombre...">
-               </div>
-               <br>
-               <div class="form-group">
-                <label for=""><b>Correo</b></label>
-                <input type="email" class="form-control" placeholder="Escribe tu Correo...">
-               </div>
-               <br>
-               <div class="form-group">
-                <label for=""><b>Mensaje</b></label>
-                <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
-               </div>
-               <hr>
-               <div class="d-grid gap-2"> 
-               <button class="btn btn-primary" type="submit">Enviar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-    </div>
-    <div class="col-md-4"></div>
-   </div>
-   <br><br>
-  </div>
-</section>
+
+
+<?php
+include ('layout/parte2.php');
+include('admin/layout/mensaje.php');
+?>
   
-<footer class="container-fluid footer">
-  <div class="container">
-    <br><br>
-    <div class="row">
-     <div class="col-md-4">
-     
-      <img src="public/img/logo sin fondo blanco.png" width="70%" height="80%"  alt="">
-    
-     </div>
-     <div class="col-md-4">
-      <h3><b>Contenido</b></h3>
-      <br>
-      <p>
-        <a href="" style="color: white;">
-          Inicio
-        </a><br>
-        <a href="" style="color: white;">
-          sobre Nosotros
-        </a><br>
-        <a href="" style="color: white;">
-          Galeria
-        </a><br>
-        <a href="" style="color: white;">
-          Testimonio de Clientes 
-        </a><br>
-        <a href="" style="color: white;">
-          Encuentranos Aqui
-        </a><br>
-        <a href="" style="color: white;">
-          Tienda en Linea
-        </a>
-      </p>
-     </div>
-     <div class="col-md-4">
-      <br><br>
-      <b><i class="bi bi-person"></i> Propietario:</b> Jhonatan Barrera <br><br>
-      <b><i class="bi bi-whatsapp"></i> Whatsapp:</b>  3113337491 <br><br>
-      <b><i class="bi bi-envelope"></i> email:</b>  jhonatanba0524@gmail.com
-     </div>
-    </div>
-    <br><br>
-  </div>
-</footer>
-
-<div class="container-fluid" style="background-color: white; color: #45a7fe;">
-<p style="text-align: center;">© Todos los derechos reservados 2024</p>
-</div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-</html>

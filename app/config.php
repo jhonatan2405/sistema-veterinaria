@@ -21,4 +21,4 @@ try {
 $URL = "http://localhost/www.sistemadeveterinaria.com";
 
 date_default_timezone_set("America/Bogota");
-$fechahora = date("Y-m-d H:i:s");
+$fechahora = date('Y-m-d H:i:s');

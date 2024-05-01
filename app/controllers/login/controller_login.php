@@ -18,13 +18,20 @@ $contador = 0;
 foreach ($usuarios as $usuario) {
     $contador = $contador + 1;
 $password_tabla = $usuario['password'];
+$cargo_tabla = $usuario['cargo'];
 }
 $hash = $password_tabla;
 if( ($contador > 0) && (password_verify($password, $hash))){
     echo "Bienvenido al sistema";
     session_start();
-    $_SESSION['sesion email'] = $email;
-    header( 'location: '.$URL.'/admin');
+    $_SESSION['sesion_email'] = $email;
+
+    if ($cargo_tabla == "ADMINISTRADOR"){
+        header( 'location: '.$URL.'/admin');
+    }else{
+        header( 'location: '.$URL.'/');
+    }
+
 }else{
     echo "error al digitar los datos";
     header( 'location: '.$URL.'/login');

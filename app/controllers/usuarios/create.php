@@ -16,7 +16,11 @@ foreach ($usuarios as $usuario) {
     $contador = $contador + 1;
 }
 if ($contador > 0) {
-    echo "este email ya esta registrado en la base de datos";
+    //echo "este email ya esta registrado en la base de datos";
+    session_start();
+    $_SESSION['mensaje'] = "Este email ".$email." ya esta registrado en la base de datos";
+    $_SESSION['icono'] = 'error';
+    header('location: '.$URL. '/admin/usuarios/create.php');
 }else
     //echo "este email es nuevo";
 if ($password == $password_verify) {
@@ -35,14 +39,24 @@ if ($password == $password_verify) {
     $sentencia->bindparam('fyh_creacion', $fechahora);
 
     if ($sentencia->execute()){
-        echo "Usuario registrado";
+        session_start();
+        $_SESSION['mensaje'] = "Se registro correctamente";
+        $_SESSION['icono'] = 'success';
         header('location: '.$URL. '/admin/usuarios');
     }else{
-        echo "Error al registrar usuario";
+        session_start();
+        $_SESSION['mensaje'] = "Error al registrar usuario";
+        $_SESSION['icono'] = 'error';
+        header('location: '.$URL. '/admin/usuarios/create.php');
     }
 
 }else{
-    echo "las contraseñas no son iguales";
+    //echo "las contraseñas no son iguales";
+    session_start();
+    $_SESSION['mensaje'] = "Las contraseñas no coinciden";
+    $_SESSION['icono'] = 'error';
+    header('location: '.$URL. '/admin/usuarios/create.php');
 }
+
 
 
